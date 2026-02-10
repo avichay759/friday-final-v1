@@ -1,15 +1,12 @@
-name: FINAL_BUILD
+name: Friday_Final_Build
 on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Build APK
-        uses: pypa/gh-action-pypi-publish@release_arm_build # זהו "בוט" חיצוני שבונה הכל לבד
-        continue-on-error: true
-      - name: Run Buildozer
+      - name: Setup Buildozer
         uses: ArtemGr/buildozer-action@v1
         with:
-          buildozer_version: master
           command: android debug
+          buildozer_version: master
