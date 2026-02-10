@@ -4,8 +4,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-      - name: Initialize Friday Core
-        run: echo "Friday Core System is Online and Secure"
-        
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Install Buildozer
+        run: |
+          pip install --user --upgrade buildozer cython
+          sudo apt-get install -y libexport-perl
+      - name: Build APK
+        uses: ArtemSerebriakov/buildozer-action@v1
+        with:
+          buildozer_version: stable
+          command: buildozer android debug
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: FRIDAY_RED_APK
+          path: bin/*.apk
+          
