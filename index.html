@@ -2,30 +2,40 @@
 <html lang="he">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FRIDAY - RED CORE</title>
+    <title>FRIDAY - NEURAL CORE</title>
     <style>
-        body { background-color: #000; color: #ff0000; font-family: 'Courier New', Courier, monospace; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-        #core { width: 150px; height: 150px; border: 5px solid #ff0000; border-radius: 50%; box-shadow: 0 0 20px #ff0000, inset 0 0 20px #ff0000; animation: pulse 1.5s infinite; position: relative; }
-        @keyframes pulse { 0% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 40px #ff0000, inset 0 0 40px #ff0000; } 100% { transform: scale(1); opacity: 0.8; } }
-        #terminal { width: 90%; height: 200px; background: rgba(20, 0, 0, 0.8); border: 1px solid #ff0000; margin-top: 20px; padding: 10px; overflow-y: auto; font-size: 12px; }
-        .status { margin-top: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; }
+        body { background: radial-gradient(circle, #200000 0%, #000 100%); color: #ff3333; font-family: 'Segoe UI', sans-serif; height: 100vh; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
+        #core { width: 180px; height: 180px; border: 2px solid #ff0000; border-radius: 50%; box-shadow: 0 0 50px #ff0000; animation: breathe 3s infinite ease-in-out; cursor: pointer; }
+        @keyframes breathe { 0%, 100% { transform: scale(1); box-shadow: 0 0 30px #ff0000; } 50% { transform: scale(1.05); box-shadow: 0 0 70px #ff0000; } }
+        #status { margin-top: 30px; font-size: 1.2em; letter-spacing: 3px; text-transform: uppercase; text-shadow: 0 0 10px #ff0000; }
+        #log { width: 80%; height: 100px; background: rgba(0,0,0,0.5); border: 1px solid #400000; margin-top: 20px; padding: 10px; font-family: monospace; font-size: 12px; overflow-y: auto; color: #800000; }
     </style>
 </head>
 <body>
-    <div id="core"></div>
-    <div class="status">System Status: Shield Active</div>
-    <div id="terminal">
-        > INITIALIZING FRIDAY RED CORE...<br>
-        > SECURITY PROTOCOL 1.0 LOADED...<br>
-        > SCANNING FOR DEVICES...<br>
-        > WAITING FOR BOSS COMMAND...<br>
-    </div>
+    <div id="core" onclick="startSystem()"></div>
+    <div id="status">System Standby - Tap Core</div>
+    <div id="log">> Initializing Neural Voice Protocol...<br>> Waiting for Boss...</div>
+
     <script>
-        const term = document.getElementById('terminal');
-        function addLog(msg) { term.innerHTML += `> ${msg}<br>`; term.scrollTop = term.scrollHeight; }
-        setTimeout(() => addLog("ENCRYPTED CONNECTION ESTABLISHED"), 2000);
-        setTimeout(() => addLog("PROTECTING DEVICE: ACTIVE"), 4000);
+        function startSystem() {
+            const status = document.getElementById('status');
+            status.innerText = "System Active - Listening";
+            status.style.color = "#00ff00";
+            // כאן יתחבר המנוע הקולי החדש
+            speak("שלום בוס. המערכת המרכזית הופעלה. אני כאן, והפעם - בקול שביקשת.");
+        }
+
+        function speak(text) {
+            const msg = new SpeechSynthesisUtterance();
+            msg.text = text;
+            msg.lang = 'he-IL';
+            // ניסיון לבחור קול איכותי יותר מהקיים
+            const voices = window.speechSynthesis.getVoices();
+            msg.voice = voices.find(v => v.name.includes('Hebrew') && v.gender === 'female') || voices[0];
+            msg.pitch = 1.1;
+            msg.rate = 0.9;
+            window.speechSynthesis.speak(msg);
+        }
     </script>
 </body>
 </html>
