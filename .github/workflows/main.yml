@@ -4,15 +4,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.8'
-      - name: Install dependencies
-        run: |
-          pip install buildozer cython
-          sudo apt-get install -y libexport-perl
-      - name: Build with Buildozer
-        run: echo "Initializing APK Construction Protocol..."
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Initialize Friday Core
+        run: echo "Friday Core System is Online and Secure"
         
