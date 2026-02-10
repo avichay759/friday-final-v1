@@ -1,17 +1,17 @@
-name: Build FRIDAY APK
+name: Build
 on: [push, workflow_dispatch]
 jobs:
-  build:
+ android:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Build APK with Buildozer
-        uses: ArtemSerebriakov/buildozer-action@v1
-        with:
-          buildozer_version: stable
-          command: buildozer android debug
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: FRIDAY_Final_Core
-          path: bin/*.apk
+    - uses: actions/checkout@v3
+    - name: Build APK
+      uses: ArtemSerebriakov/buildozer-action@v1
+      with:
+       buildozer_version: stable
+       command: buildozer android debug
+    - name: Upload
+      uses: actions/upload-artifact@v3
+      with:
+        name: FRIDAY_RED
+        path: bin/*.apk
